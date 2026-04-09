@@ -1,13 +1,12 @@
 <?php
-$host="10.11.12.109";
-$user="estafet_user";
-$pass="Qwerty123$%";
+require 'connection.php';
 
-$conn=mysqli_connect("$host","$user","$pass");
-include  'connection.php';
-            $query = "SELECT * FROM mahasiswa";
-            $result = mysqli_query($conn, $query);
-            $no = 1;
+// $host="10.11.12.109";
+// $user="estafet_user";
+// $pass="Qwerty123$%";
+
+// $conn=mysqli_connect("$host","$user","$pass");
+$query = mysqli_query($conn, "SELECT * From mahasiswa");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,13 +18,7 @@ include  'connection.php';
 </head>
 <body class = "container mt-5">
     <h1 class = "text-center mb-4">KRS Estafet</h1>
-    <?php 
-    if (isset($error)) { 
-    ?>
-        <p style="color: red;"><?php echo $error; ?></p>
-    <?php 
-    } 
-    ?>
+  
     <form method="POST">
         <input type="text" 
             name="npm" 
@@ -46,19 +39,20 @@ include  'connection.php';
         <tbody>
             <?php
             
-            while ($row = mysqli_fetch_assoc($result)) {
-                echo "<tr>";
-                echo "<td>" . $no++ . "</td>";
-                echo "<td>" . $row['nama_mahasiswa'] . "</td>";
-                echo "<td>" . $row['npm'] . "</td>";
-                echo "<td>" . $row['matakuliah'] . "</td>";
-                echo "<td>" . $row['sks'] . "</td>";
-                echo "<td>";
-                echo "<a href='edit.php?id=" . $row['id'] . "' class='btn btn-warning btn-sm'>Edit</a> ";
-                echo "<a href='delete.php?id=" . $row['id'] . "' class='btn btn-danger btn-sm' onclick=\"return confirm('Apakah Anda yakin ingin menghapus data ini?')\">Hapus</a>";
-                echo "</td>";
-                echo "</tr>";
-            }
+       foreach ($query as $row) {
+    echo "<tr>";
+    echo "<td>" . $no++ . "</td>";
+    echo "<td>" . $row['mahasiswa_npm'] . "</td>";
+    echo "<td>" . $row['mahasiswa_nama'] . "</td>";
+    echo "<td>" . $row['mahasiswa_prodi'] . "</td>";
+    echo "<td>" . $row['mahasiswa_tempatlahir'] . "</td>";
+    echo "<td>" . $row['mahasiswa_tanggallahir'] . "</td>";
+    echo "<td>";
+    echo "<a href='edit.php"' class='btn btn-warning btn-sm'>Edit</a> ";
+    echo "<a href='delete.php"' class='btn btn-danger btn-sm' onclick=\"return confirm('Apakah Anda yakin ingin menghapus data ini?')\">Hapus</a>";
+    echo "</td>";
+    echo "</tr>";
+}
             ?>
         </body>
     </table>
@@ -66,14 +60,3 @@ include  'connection.php';
 </body>
 </html>
 
-<?php
-$host = "localhost";
-$user = "root";
-$pass = "";
-$db = "KRS_estafet";
-
-$conn = mysqli_connect($host, $user, $pass, $db);
-
-if (!$conn) {
-    die("database_connection failed" . mysqli_connect_error());
-}
