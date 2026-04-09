@@ -1,4 +1,9 @@
-
+<?php
+include 'connection.php';
+            $query = "SELECT * FROM mahasiswa";
+            $result = mysqli_query($conn, $query);
+            $no = 1;
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,18 +18,16 @@
         <thead>
             <tr>
                 <th>No</th>
-                <th>Nama Mahasiswa</th>
-                <th>NPM</th>
+                <th>Dosen</th>
+
                 <th>Matakuliah</th>
                 <th>SKS</th>
+
             </tr>
         </thead>
         <tbody>
             <?php
-            include 'connection.php';
-            $query = "SELECT * FROM mahasiswa";
-            $result = mysqli_query($conn, $query);
-            $no = 1;
+            
             while ($row = mysqli_fetch_assoc($result)) {
                 echo "<tr>";
                 echo "<td>" . $no++ . "</td>";
