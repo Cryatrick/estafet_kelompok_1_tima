@@ -1,5 +1,10 @@
 <?php
-include 'connection.php';
+$host="10.11.12.109";
+$user="estafet_user";
+$pass="Qwerty123$%";
+
+$conn=mysqli_connect("$host","$user","$pass");
+include  'connection.php';
             $query = "SELECT * FROM mahasiswa";
             $result = mysqli_query($conn, $query);
             $no = 1;
@@ -14,6 +19,19 @@ include 'connection.php';
 </head>
 <body class = "container mt-5">
     <h1 class = "text-center mb-4">KRS Estafet</h1>
+    <?php 
+    if (isset($error)) { 
+    ?>
+        <p style="color: red;"><?php echo $error; ?></p>
+    <?php 
+    } 
+    ?>
+    <form method="POST">
+        <input type="text" 
+            name="npm" 
+            placeholder="Masukkan NPM Mahasiswa">
+        <button type="submit">Kirim</button>
+    </form>
     <table class="table table-bordered">
         <thead>
             <tr>
@@ -42,8 +60,20 @@ include 'connection.php';
                 echo "</tr>";
             }
             ?>
-        </tbody>
+        </body>
     </table>
     
 </body>
 </html>
+
+<?php
+$host = "localhost";
+$user = "root";
+$pass = "";
+$db = "KRS_estafet";
+
+$conn = mysqli_connect($host, $user, $pass, $db);
+
+if (!$conn) {
+    die("database_connection failed" . mysqli_connect_error());
+}
